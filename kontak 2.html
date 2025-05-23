@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halaman Kontak Kece Banget</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100%;
+      background: #021d32; /* dark night sky */
+      color: white; /* white text for contrast */
+      overflow-x: hidden;
+    }
+
+    canvas#stars, canvas#meteors {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -2;
+    }
+
+    .moon {
+      position: fixed;
+      top: 40px;
+      right: 60px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+      box-shadow: 0 0 30px #fff;
+      z-index: -1;
+      animation: moonGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes moonGlow {
+      0% { box-shadow: 0 0 20px #fff; }
+      100% { box-shadow: 0 0 60px #fff; }
+    }
+
+    .cloud {
+      position: fixed;
+      top: 100px;
+      left: -200px;
+      width: 300px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      filter: blur(40px);
+      animation: cloudMove 60s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes cloudMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(2000px); }
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 100px 20px 40px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      color: white;
+      text-shadow: 0 0 4px #000;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      padding: 12px;
+      margin-top: 6px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 14px;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(135deg, #0080ff, #0056d2);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .success-message {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #2ecc71;
+      border-radius: 8px;
+      color: white;
+      text-align: center;
+      display: none;
+    }
+
+    .back-to-menu {
+      display: inline-block;
+      margin: 30px auto;
+      padding: 12px 24px;
+      background: linear-gradient(to right, #4a90e2, #6fb1fc);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .back-to-menu:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #ccc;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<canvas id="meteors"></canvas>
+<div class="moon"></div>
+<div class="cloud"></div>
+
+<div class="container">
+  <h2>Hubungi Kami</h2>
+  <form id="contactForm">
+    <label for="name">Nama:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="message">Pesan:</label>
+    <textarea id="message" name="message" required></textarea>
+
+    <button type="submit">Kirim Pesan</button>
+    <div class="success-message" id="successMessage">✅ Pesan berhasil dikirim!</div>
+  </form>
+  <div class="footer">&copy; 2025 Halaman Kontak by Fadli</div>
+</div>
+
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2021/11/18/audio_fab6947f4c.mp3" type="audio/mpeg">
+</audio>
+
+<a href="menu%20asli.html" class="back-to-menu">⬅ Kembali ke Menu Utama</a>
+
+<script>
+  // Bintang diam
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const stars = Array.from({ length: 150 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5 + 0.5,
+    d: Math.random() * 0.5 + 0.1
+  }));
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#fff";
+    stars.forEach(star => {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+      ctx.fill();
+      star.y += star.d;
+      if (star.y > canvas.height) {
+        star.y = 0;
+        star.x = Math.random() * canvas.width;
+      }
+    });
+    requestAnimationFrame(drawStars);
+  }
+  drawStars();
+
+  // Bintang jatuh
+  const meteorCanvas = document.getElementById("meteors");
+  const mtx = meteorCanvas.getContext("2d");
+  meteorCanvas.width = window.innerWidth;
+  meteorCanvas.height = window.innerHeight;
+
+  const meteors = Array.from({ length: 5 }, () => ({
+    x: Math.random() * meteorCanvas.width,
+    y: Math.random() * meteorCanvas.height / 2,
+    dx: Math.random() * 4 + 2,
+    dy: Math.random() * 4 + 2,
+    length: Math.random() * 80 + 50
+  }));
+
+  function drawMeteors() {
+    mtx.clearRect(0, 0, meteorCanvas.width, meteorCanvas.height);
+    mtx.strokeStyle = "white";
+    mtx.lineWidth = 2;
+
+    meteors.forEach(meteor => {
+      mtx.beginPath();
+      mtx.moveTo(meteor.x, meteor.y);
+      mtx.lineTo(meteor.x - meteor.dx * meteor.length / 100, meteor.y + meteor.dy * meteor.length / 100);
+      mtx.stroke();
+      meteor.x += meteor.dx;
+      meteor.y += meteor.dy;
+
+      if (meteor.y > meteorCanvas.height) meteor.y = 0;
+      if (meteor.x > meteorCanvas.width) meteor.x = 0;
+    });
+    requestAnimationFrame(drawMeteors);
+  }
+  drawMeteors();
+
+  // Form submit
+  const form = document.getElementById("contactForm");
+  const successMessage = document.getElementById("successMessage");
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    successMessage.style.display = "block";
+    setTimeout(() => {
+      successMessage.style.display = "none";
+      form.reset();
+    }, 3000);
+  });
+
+  // Resizing canvas for responsiveness
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    meteorCanvas.width = window.innerWidth;
+    meteorCanvas.height = window.innerHeight;
+  });
+</script>
+
+</body>
+</html>

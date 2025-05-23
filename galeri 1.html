@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galeri Foto Keren</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      background-color: #0f2027;
+      color: white;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    header {
+      background: rgba(30, 60, 100, 0.8);
+      padding: 40px 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+      color: #dcdcdc;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      cursor: pointer;
+      background-color: #fff;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1) rotate3d(1, 1, 0, 6deg);
+      box-shadow: 0 25px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .back-to-menu {
+      display: block;
+      text-align: center;
+      background: linear-gradient(to right, #4a90e2, #6fb1fc);
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 14px 30px;
+      border-radius: 10px;
+      margin: 40px auto;
+      width: fit-content;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .back-to-menu:hover {
+      background: linear-gradient(to right, #3a7bd5, #5fc9f8);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(20, 40, 60, 0.85);
+      backdrop-filter: blur(5px);
+      color: #ccc;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="rainCanvas"></canvas>
+
+  <header>
+    <h1>Galeri Foto Saya</h1>
+    <p>Kumpulan foto favorit dengan tampilan sinematik</p>
+  </header>
+
+  <section class="gallery">
+    <img src="2.JPEG" alt="Foto 1" />
+    <img src="3.JPEG" alt="Foto 2" />
+    <img src="4.JPEG" alt="Foto 3" />
+    <img src="5.JPEG" alt="Foto 4" />
+    <img src="6.JPEG" alt="Foto 5" />
+    <img src="7.JPEG" alt="Foto 6" />
+  </section>
+
+  <a href="menu%20asli.html" class="back-to-menu">⬅ Kembali ke Menu Utama</a>
+
+  <footer>
+    &copy; 2025 Galeri by Kamu
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('rainCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    const raindrops = [];
+
+    for (let i = 0; i < 300; i++) {
+      raindrops.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        length: Math.random() * 20 + 10,
+        opacity: Math.random(),
+        speed: Math.random() * 4 + 4
+      });
+    }
+
+    function drawRain() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.strokeStyle = 'rgba(174,194,224,0.5)';
+      ctx.lineWidth = 1.2;
+      ctx.lineCap = 'round';
+
+      for (let i = 0; i < raindrops.length; i++) {
+        let r = raindrops[i];
+        ctx.beginPath();
+        ctx.moveTo(r.x, r.y);
+        ctx.lineTo(r.x, r.y + r.length);
+        ctx.stroke();
+
+        r.y += r.speed;
+        if (r.y > height) {
+          r.y = -20;
+          r.x = Math.random() * width;
+        }
+      }
+      requestAnimationFrame(drawRain);
+    }
+
+    drawRain();
+
+    window.addEventListener('resize', () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    });
+  </script>
+</body>
+</html>
